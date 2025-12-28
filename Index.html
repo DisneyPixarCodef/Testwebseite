@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test-Webseite für Lasttests</title>
+    <style>
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6; 
+            background-color: #f4f4f4; 
+            color: #333; 
+            max-width: 800px; 
+            margin: 40px auto; 
+            padding: 20px; 
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        h1 { 
+            color: #0056b3;
+            text-align: center;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            margin-top: 15px;
+        }
+        .button {
+            display: inline-block;
+            background-color: #0056b3;
+            color: #ffffff;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .status {
+            background-color: #e3f2fd;
+            border-left: 5px solid #0056b3;
+            padding: 15px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Willkommen auf der Lasttest-Zielseite</h1>
+
+    <div class="status">
+        <p><strong>Systemstatus:</strong> Alle Systeme sind betriebsbereit. Diese Seite dient als Ziel für kontrollierte Performance- und Lasttests.</p>
+    </div>
+
+    <p>Dies ist eine einfache, statische HTML-Seite, die als Ziel für einen Lasttest dient. Sie enthält verschiedene Elemente, um eine minimale, aber realistische Serveranfrage zu simulieren.</p>
+
+    <h2>Zu ladende Elemente:</h2>
+    <ul>
+        <li>Ein Haupt-Stylesheet im &lt;head&gt;-Tag.</li>
+        <li>Mehrere Textabsätze und Listen.</li>
+        <li>Ein Bild, das vom Server geladen wird.</li>
+        <li>Ein klickbarer Button (ohne Funktion).</li>
+    </ul>
+
+    <p>Der Zweck des Tests ist es, zu beobachten, wie der Hosting-Dienst auf eine hohe Anzahl gleichzeitiger Anfragen reagiert.</p>
+
+    <!-- Ein Platzhalterbild, das immer verfügbar ist -->
+    <img src="https://via.placeholder.com/800x200.png?text=Test-Banner" alt="Platzhalterbild">
+
+    <a href="#" class="button">Aktion simulieren</a>
+
+</body>
+</html>
