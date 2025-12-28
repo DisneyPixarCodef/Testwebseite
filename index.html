@@ -3,70 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test-Webseite für Lasttests</title>
+    <title>Webseite mit Server-Verbindung</title>
     <style>
-        body { 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.6; 
-            background-color: #f4f4f4; 
-            color: #333; 
-            max-width: 800px; 
-            margin: 40px auto; 
-            padding: 20px; 
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        h1 { 
-            color: #0056b3;
-            text-align: center;
-        }
-        img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 4px;
-            margin-top: 15px;
-        }
-        .button {
-            display: inline-block;
-            background-color: #0056b3;
-            color: #ffffff;
-            padding: 10px 15px;
-            text-decoration: none;
-            border-radius: 5px;
-            margin-top: 20px;
-        }
-        .status {
-            background-color: #e3f2fd;
-            border-left: 5px solid #0056b3;
-            padding: 15px;
-            margin-top: 20px;
-        }
+        body { font-family: sans-serif; max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.6; }
+        #serverAntwort { margin-top: 20px; padding: 15px; background-color: #f0f0f0; border-left: 5px solid #007bff; min-height: 20px; font-family: monospace; }
+        button { font-size: 16px; padding: 10px 15px; cursor: pointer; background-color: #007bff; color: white; border: none; border-radius: 5px; }
+        button:hover { background-color: #0056b3; }
     </style>
 </head>
 <body>
 
-    <h1>Willkommen auf der Lasttest-Zielseite</h1>
+    <h1>Webseite (Kellner)</h1>
+    <p>Diese Seite ist mit einem externen Server (Küche) verbunden. Klicke auf den Button, um eine Nachricht von dort abzurufen.</p>
 
-    <div class="status">
-        <p><strong>Systemstatus:</strong> Alle Systeme sind betriebsbereit. Diese Seite dient als Ziel für kontrollierte Performance- und Lasttests.</p>
-    </div>
+    <!-- Der Button, der die "Bestellung" auslöst -->
+    <button id="serverAnfrageButton">Gruß vom Server holen!</button>
 
-    <p>Dies ist eine einfache, statische HTML-Seite, die als Ziel für einen Lasttest dient. Sie enthält verschiedene Elemente, um eine minimale, aber realistische Serveranfrage zu simulieren.</p>
+    <!-- Hier wird die Antwort der "Küche" angezeigt -->
+    <div id="serverAntwort">Warte auf Antwort...</div>
 
-    <h2>Zu ladende Elemente:</h2>
-    <ul>
-        <li>Ein Haupt-Stylesheet im &lt;head&gt;-Tag.</li>
-        <li>Mehrere Textabsätze und Listen.</li>
-        <li>Ein Bild, das vom Server geladen wird.</li>
-        <li>Ein klickbarer Button (ohne Funktion).</li>
-    </ul>
+    <script>
+        // Kellner wartet darauf, dass der Gast den Knopf drückt
+        document.getElementById('serverAnfrageButton').addEventListener('click', () => {
+            const antwortBox = document.getElementById('serverAntwort');
+            antwortBox.textContent = 'Frage Server an... (Server wacht auf, das kann 30s dauern)';
 
-    <p>Der Zweck des Tests ist es, zu beobachten, wie der Hosting-Dienst auf eine hohe Anzahl gleichzeitiger Anfragen reagiert.</p>
+            // Hier ist deine korrekte Server-URL eingefügt
+            const serverUrl = 'https://mein-kleiner-server.onrender.com/api/gruss';
 
-    <!-- Ein Platzhalterbild, das immer verfügbar ist -->
-    <img src="https://via.placeholder.com/800x200.png?text=Test-Banner" alt="Platzhalterbild">
-
-    <a href="#" class="button">Aktion simulieren</a>
+            // Der Kellner geht zur Küche
+            fetch(serverUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Netzwerk-Antwort war nicht ok. Status: ' + response.status);
+                    }
+                    return response.json(); // Nimmt das Essen entgegen und packt es aus
+                })
+                .then(data => {
+                    // Serviert dem Gast das Essen
+                    antwortBox.textContent = data.message;
+                })
+                .catch(error => {
+                    // Sagt dem Gast, wenn die Küche geschlossen ist
+                    console.error('Fehler:', error);
+                    antwortBox.textContent = 'Fehler! Der Server antwortet nicht. (Ist er nach Inaktivität vielleicht eingeschlafen? Nochmal versuchen!)';
+                });
+        });
+    </script>
 
 </body>
 </html>
